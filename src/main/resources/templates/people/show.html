@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Show</title>
+</head>
+<body>
+<p th:text="${human.getFullName() + ', ' + human.getYearOfBirth()}">VALUE</p>
+
+<div th:if="${bikes.isEmpty()}">
+    <p>Человек пока не взял ни одного велосипеда</p>
+    <hr/>
+</div>
+
+<div th:if="${!bikes.isEmpty()}">
+    <hr/>
+    <b>Велосипед:</b>
+    <br/>
+    <table th:each="bike : ${bikes}">
+        <tr>
+            <td>
+                <span th:text="${bike.getFullName() + ', ' + bike.getYearOfBirth()}"
+                   th:style="${bike.isExpired()} ? 'color: red' : 'color: black'">
+                    book
+                </span>
+            </td>
+        </tr>
+    </table>
+    <hr/>
+</div>
+
+<form th:method="GET" th:action="@{/people/{id}/edit(id=${human.getId()})}">
+    <input type="submit" value="Редактировать"/>
+</form>
+
+<form th:method="DELETE" th:action="@{/people/{id}(id=${human.getId()})}">
+    <input type="submit" value="Удалить"/>
+</form>
+
+</body>
+</html>
